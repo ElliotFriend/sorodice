@@ -111,7 +111,25 @@ impl SorodiceContract {
             return Err(Error::TooManySides);
         }
 
-        // Get some statistics from storage for later use.
+        // Set up our number generator, and a vector to hold the respective
+        // rolls in.
+        let prng = env.prng();
+        let mut rolls = Vec::new(&env);
+
+        // Iterate through the number of dice, generating a random number within
+        // the specified range, add that number to the `rolls` vector.
+        for _i in 0..num_dice {
+            let rolled_value: u64 = prng.gen_range(1..=num_faces.into());
+            rolls.push_back(rolled_value as u32);
+        }
+
+        // Create the result struct.
+        let roll_result = RollResult {
+            total: rolls.clone().iter().sum(),
+            rolls,
+        };
+
+        // Get some statistics from storage.
         let GlobalStats {
             total_dice_rolled,
             total_value_rolled,
@@ -135,24 +153,6 @@ impl SorodiceContract {
                 total_value: 0,
                 rolled_freq: map![&env],
             });
-
-        // Set up our number generator, and a vector to hold the respective
-        // rolls in.
-        let prng = env.prng();
-        let mut rolls = Vec::new(&env);
-
-        // Iterate through the number of dice, generating a random number within
-        // the specified range, add that number to the `rolls` vector.
-        for _i in 0..num_dice {
-            let rolled_value: u64 = prng.gen_range(1..=num_faces.into());
-            rolls.push_back(rolled_value as u32);
-        }
-
-        // Create the result struct.
-        let roll_result = RollResult {
-            total: rolls.clone().iter().sum(),
-            rolls,
-        };
 
         // Publish a relevant event.
         env.events().publish(
