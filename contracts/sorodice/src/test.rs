@@ -20,7 +20,6 @@ fn test_1d20_roll() {
     assert!(dice_roll_result.total < 21);
 }
 
-
 #[test]
 fn test_2d20_roll() {
     let env = Env::default();
