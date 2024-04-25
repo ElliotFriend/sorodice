@@ -1,6 +1,6 @@
 #![no_std]
 
-use soroban_sdk::{contract, contractimpl, contractmeta, map, panic_with_error, symbol_short, vec, Address, Bytes, BytesN, Env, Vec};
+use soroban_sdk::{contract, contractimpl, contractmeta, map, panic_with_error, symbol_short, vec, Address, BytesN, Env, Vec};
 use types::*;
 
 contractmeta!(key = "SoroDice", val = "A dnd dice dapp");
