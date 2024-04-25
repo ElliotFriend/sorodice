@@ -4,8 +4,15 @@ use soroban_sdk::{contracterror, contracttype, Map, Vec};
 #[derive(Clone)]
 pub enum DataKey {
     Admin,
-    TotalDiceThrown,
-    TotalValueRolled,
+    GlobalStats,
+}
+
+#[contracttype]
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GlobalStats {
+    pub total_dice_rolled: u32, // the total number of dice which have ever been rolled
+    pub total_value_rolled: u32, // to total sum of all dice which have ever been rolled
+    pub which_dice_rolled: Vec<u32>, // to track which dice have ever been rolled
 }
 
 #[contracterror]
@@ -17,7 +24,8 @@ pub enum Error {
     TooManyDice = 3,
     TooManySides = 4,
     InvalidSpeedDial = 5,
-    GenericError = 6,
+    DieNotRolledYet = 6,
+    NoDiceRolledYet = 7,
 }
 
 #[contracttype]
@@ -30,7 +38,9 @@ pub struct RollResult {
 #[contracttype]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct DieStatistics {
+    pub num_faces: u32,
     pub total_rolls: u32,
+    pub total_value: u32,
     pub rolled_freq: Map<u32, u32>,
 }
 
