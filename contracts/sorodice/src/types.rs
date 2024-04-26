@@ -19,13 +19,13 @@ pub struct GlobalStats {
 #[derive(Copy, Clone, Debug, Eq, PartialEq, PartialOrd, Ord)]
 #[repr(u32)]
 pub enum Error {
-    NotInitialized = 1,
-    AlreadyInitialized = 2,
-    TooManyDice = 3,
-    TooManySides = 4,
-    InvalidSpeedDial = 5,
-    DieNotRolledYet = 6,
-    NoDiceRolledYet = 7,
+    NotInitialized = 1, // Contract has not been initialized yet.
+    AlreadyInitialized = 2, // Contract has already been initialized.
+    TooManyDice = 3, // Please specify 255 or fewer dice.
+    TooManySides = 4, // Please specify 255 or fewer faces for the die.
+    InvalidSpeedDial = 5, // Please specify a valid speed dial string.
+    DieNotRolledYet = 6, // The specified die has never been rolled yet.
+    NoDiceRolledYet = 7, // There have been no dice rolls yet.
 }
 
 #[contracttype]

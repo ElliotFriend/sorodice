@@ -1,26 +1,45 @@
 <script>
-    import { enhance } from "$app/forms"
+    import { enhance } from '$app/forms'
+    import Alert from '$lib/components/ui/Alert.svelte'
 
-    export let data
-    export let form
-
-    let numDice = 1
+    /** @type {import('./$types').ActionData} */
+    export let form;
 </script>
 
 <h1 class="h1">Let's Roll</h1>
 
-<p class="mt-4">Get started by selecting how many dice, and how many faces you'd like to roll.</p>
+<p class="mt-4">Get started by selecting how many dice, with how many faces, you'd like to roll.</p>
 
-<form class="mt-4 space-y-4" method="POST" use:enhance>
+<form method="POST" action="?/simulate" use:enhance class="mt-4 space-y-4">
+    {#if form?.invalidDice}<Alert visible={true} title="Invalid Dice" message="Please enter a valid number of dice." />{/if}
+    {#if form?.invalidFaces}<Alert visible={true} title="Invalid Faces" message="Please enter a valid number of faces." />{/if}
     <label class="label">
         <span>Number of Dice</span>
-        <input id="numDice" class="input variant-form-material" type="number" max="255" min="1" />
+        <input
+            placeholder="1"
+            value={form?.numDice ?? ''}
+            id="numDice"
+            name="numDice"
+            class="input variant-form-material"
+            type="number"
+            max="255"
+            min="1"
+        />
     </label>
 
     <label class="label">
         <span>Number of Faces</span>
-        <input id="numFaces" class="input variant-form-material" type="number" max="255" min="1" />
+        <input
+            placeholder="20"
+            value={form?.numFaces ?? ''}
+            id="numFaces"
+            name="numFaces"
+            class="input variant-form-material"
+            type="number"
+            max="255"
+            min="1"
+        />
     </label>
 
-    <button type="button" class="btn variant-filled-primary">Roll!</button>
+    <button type="submit" class="btn variant-filled-primary">Roll!</button>
 </form>

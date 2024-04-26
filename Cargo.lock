@@ -1114,7 +1114,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "sorodice"
+name = "sorodice-contract"
 version = "0.1.0"
 dependencies = [
  "soroban-sdk",

@@ -30,7 +30,7 @@
             href: '/admin',
             icon: LockKeyhole,
         },
-    ];
+    ]
 </script>
 
 <header class="flex-none z-10">

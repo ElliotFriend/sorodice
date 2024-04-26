@@ -1,6 +1,6 @@
 <script>
-	import '../app.postcss';
-	import SiteHeader from '$lib/components/ui/SiteHeader.svelte'
+    import '../app.postcss'
+    import SiteHeader from '$lib/components/ui/SiteHeader.svelte'
     import PageContent from '$lib/components/PageContent.svelte'
 </script>
 
