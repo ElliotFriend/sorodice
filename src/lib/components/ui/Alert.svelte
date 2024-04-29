@@ -1,6 +1,28 @@
 <script>
-    import TriangleAlert from "lucide-svelte/icons/triangle-alert"
+    import TriangleAlert from 'lucide-svelte/icons/triangle-alert'
     import Button from '$lib/components/ui/Button.svelte'
+
+    /**
+     * @typedef {Object} AlertOptions
+     * @property {string} class
+     * @property {import('svelte').ComponentType<import('lucide-svelte').Icon>} icon
+     */
+
+    /** @type {Object<string, AlertOptions>} */
+    const alertVariants = {
+        success: {
+            class: 'alert variant-filled-success',
+            icon: TriangleAlert,
+        },
+        error: {
+            class: 'alert variant-filled-error',
+            icon: TriangleAlert,
+        },
+        warning: {
+            class: 'alert variant-filled-warning',
+            icon: TriangleAlert,
+        },
+    }
 
     /** @type boolean */
     export let visible = false
@@ -11,12 +33,12 @@
     /** @type string */
     export let message = 'An error has occurred.'
     /** @type string */
-    export let variant = 'filled-error'
+    export let variant = 'error'
 </script>
 
 {#if visible}
-    <aside class={`alert variant-${variant}`}>
-        <div><TriangleAlert /></div>
+    <aside class={alertVariants[variant].class}>
+        <div><svelte:component this={alertVariants[variant].icon} /></div>
         <div class="alert-message">
             <h3 class="h3">{title}</h3>
             <p>{message}</p>

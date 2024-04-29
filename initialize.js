@@ -7,8 +7,8 @@ import { fileURLToPath } from 'url'
 // Load environment variables starting with PUBLIC_ into the environment,
 // so we don't need to specify duplicate variables in .env
 for (const key in process.env) {
-    if (key.startsWith('VITE_')) {
-        process.env[key.substring(5)] = process.env[key]
+    if (key.startsWith('PUBLIC_')) {
+        process.env[key.substring(7)] = process.env[key]
     }
 }
 
