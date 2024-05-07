@@ -24,15 +24,15 @@
         },
     }
 
-    /** @type boolean */
+    /** @type {boolean} */
     export let visible = false
-    /** @type boolean */
+    /** @type {boolean} */
     export let showActions = false
-    /** @type string */
+    /** @type {string} */
     export let title = 'Warning'
-    /** @type string */
+    /** @type {string} */
     export let message = 'An error has occurred.'
-    /** @type string */
+    /** @type {("success"|"error"|"warning")} */
     export let variant = 'error'
 </script>
 

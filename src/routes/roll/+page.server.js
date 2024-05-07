@@ -1,6 +1,7 @@
 import { fail } from '@sveltejs/kit'
 
-import { buildRollTx, simulateTx, prepareTx } from '$lib/stellar'
+import sorodiceContract from '../../contracts/sorodice_contract'
+// import { buildRollTx, simulateTx, prepareTx } from '$lib/stellar'
 
 /** @type {import('./$types').Actions} */
 export const actions = {
@@ -8,6 +9,10 @@ export const actions = {
         const data = await request.formData()
         const numDice = data.get('numDice')
         const numFaces = data.get('numFaces')
+        const userPublicKey = data.get('userPublicKey')
+        if (userPublicKey) {
+            sorodiceContract.options.publicKey = userPublicKey.toString()
+        }
 
         if (!numDice || parseInt(numDice.toString()) > 255) {
             return fail(400, { numDice, numFaces, invalidDice: true })
@@ -16,19 +21,14 @@ export const actions = {
             return fail(400, { numDice, numFaces, invalidFaces: true })
         }
 
-        const tx = await buildRollTx({
-            numDice: parseInt(numDice.toString()),
-            numFaces: parseInt(numFaces.toString()),
-            publicKey: 'GC5WHUWDS2T2CELDWUH2DQCHJYTTCCSR6GTTZMPP7DD72EZM4KGPIH5Q',
+        const assembledTx = await sorodiceContract.roll({
+            num_dice: parseInt(numDice.toString()),
+            num_faces: parseInt(numFaces.toString()),
         })
-        console.log('tx', tx)
 
-        const simTx = await simulateTx(tx)
-        console.log('simTx', simTx)
-
-        const prepTx = await prepareTx(tx)
-        console.log('prepTx', prepTx)
-
-        return { simulated: true }
+        return {
+            success: true,
+            assembled: assembledTx.toJSON()
+        }
     },
 }

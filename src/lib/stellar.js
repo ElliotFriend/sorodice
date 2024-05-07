@@ -1,4 +1,4 @@
-import { PUBLIC_SOROBAN_RPC_URL, PUBLIC_LOCAL_CONTRACT_ADDRESS, PUBLIC_SOROBAN_NETWORK_PASSPHRASE } from '$env/static/public'
+import { PUBLIC_SOROBAN_RPC_URL, PUBLIC_SOROBAN_NETWORK_PASSPHRASE } from '$env/static/public'
 import { sleep } from './utils'
 
 import {
@@ -82,7 +82,7 @@ export async function buildRollTx({ numDice, numFaces, publicKey }) {
         networkPassphrase: PUBLIC_SOROBAN_NETWORK_PASSPHRASE,
     })
     .addOperation(Operation.invokeContractFunction({
-        contract: PUBLIC_LOCAL_CONTRACT_ADDRESS,
+        contract: 'CC2OIY5VDRKABZILZLWGMVBROOWYEFWKIC6YPHGWC3Z4HBM2LXYVPJ7C',
         function: "roll",
         args: [
             xdr.ScVal.scvU32(numDice),

@@ -17,9 +17,11 @@
         "test:unit": "vitest"
     },
     "devDependencies": {
+        "@creit.tech/stellar-wallets-kit": "^0.8.1",
         "@playwright/test": "^1.28.1",
         "@skeletonlabs/skeleton": "2.9.2",
         "@skeletonlabs/tw-plugin": "0.4.0",
+        "@stellar/stellar-sdk": "^12.0.0-rc.1",
         "@sveltejs/adapter-auto": "^3.0.0",
         "@sveltejs/kit": "^2.0.0",
         "@sveltejs/vite-plugin-svelte": "^3.0.0",
@@ -31,6 +33,7 @@
         "eslint": "^8.56.0",
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-svelte": "^2.35.1",
+        "lucide-svelte": "^0.373.0",
         "postcss": "8.4.38",
         "prettier": "^3.1.1",
         "prettier-plugin-svelte": "^3.1.2",
@@ -44,10 +47,10 @@
         "vitest": "^1.2.0"
     },
     "type": "module",
-    "dependencies": {
-        "lucide-svelte": "^0.373.0"
-    },
     "workspaces": [
         "packages/*"
-    ]
+    ],
+    "engines": {
+        "node": ">=20"
+    }
 }

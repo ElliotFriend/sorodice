@@ -12,13 +12,6 @@ for (const key in process.env) {
     }
 }
 
-const GENESIS_ACCOUNTS = {
-    public: 'GAAZI4TCR3TY5OJHCTJC2A4QSY6CJWJH5IAJTGKIN2ER7LBNVKOCCWN7',
-    testnet: 'GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H',
-    futurenet: 'GADNDFP7HM3KFVHOQBBJDBGRONMKQVUYKXI6OYNDMS2ZIK7L6HA3F2RF',
-    standalone: 'GBZXN7PIRZGNMHGA7MUUUF4GWPY5AYPV6LY4UV2GL6VJGIQRXFDNMADI',
-}
-
 console.log('###################### Initializing ########################')
 
 // Get dirname (equivalent to the Bash version)
@@ -68,6 +61,12 @@ function deploy_all() {
     })
 }
 
+function initialize_contract() {
+    exe(
+        `${soroban} contract invoke --id $(cat ${contract}) -- initialize --admin ${process.env.SOROBAN_ACCOUNT}`
+    )
+}
+
 function bind(contract) {
     const filenameNoExt = filenameNoExtension(contract)
     exe(
@@ -100,7 +99,6 @@ function importContract(contract) {
         `  ...Client.networks.${process.env.SOROBAN_NETWORK},\n` +
         `  rpcUrl,\n` +
         `${process.env.SOROBAN_NETWORK === 'local' || 'standalone' ? `  allowHttp: true,\n` : null}` +
-        `  publicKey: '${GENESIS_ACCOUNTS[process.env.SOROBAN_NETWORK]}',\n` +
         `});\n`
 
     const outputPath = `${outputDir}/${filenameNoExt}.ts`
@@ -125,5 +123,6 @@ function import_all() {
 fund_all()
 build_all()
 deploy_all()
+initialize_contract()
 bind_all()
 import_all()

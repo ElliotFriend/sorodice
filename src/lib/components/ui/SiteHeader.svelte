@@ -1,10 +1,9 @@
 <script>
-    import Button from './Button.svelte'
+    import ConnectWallet from './ConnectFreighter.svelte';
 
     import Dices from 'lucide-svelte/icons/dices'
     import LineChart from 'lucide-svelte/icons/line-chart'
     import LockKeyhole from 'lucide-svelte/icons/lock-keyhole'
-    import Wallet from 'lucide-svelte/icons/wallet'
 
     /**
      * @typedef {Object} MenuItem
@@ -51,10 +50,7 @@
                 {/each}
             </div>
             <div class="flex-none flex items-center space-x-4 place-content-end">
-                <button type="button" class="btn variant-filled">
-                    <span><Wallet /></span>
-                    <span>Connect Wallet</span>
-                </button>
+                <ConnectWallet />
             </div>
         </div>
     </div>
