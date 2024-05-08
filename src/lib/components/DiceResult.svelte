@@ -1,5 +1,5 @@
 <script>
-    import sorodiceContract from '../../contracts/sorodice_contract'
+    import sorodiceContract from '$lib/contracts/sorodice_contract'
 
     import pkg from '@stellar/freighter-api'
     const { isAllowed, setAllowed, signTransaction } = pkg

@@ -1,4 +1,4 @@
-import sorodiceContract from '../../contracts/sorodice_contract'
+import sorodiceContract from '$lib/contracts/sorodice_contract'
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load() {

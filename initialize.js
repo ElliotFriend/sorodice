@@ -83,7 +83,7 @@ function bind_all() {
 
 function importContract(contract) {
     const filenameNoExt = filenameNoExtension(contract)
-    const outputDir = `${dirname}/src/contracts/`
+    const outputDir = `${dirname}/src/lib/contracts/`
     mkdirSync(outputDir, { recursive: true })
 
     const importContent =

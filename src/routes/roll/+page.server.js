@@ -1,6 +1,6 @@
 import { fail } from '@sveltejs/kit'
 
-import sorodiceContract from '../../contracts/sorodice_contract'
+import sorodiceContract from '$lib/contracts/sorodice_contract'
 // import { buildRollTx, simulateTx, prepareTx } from '$lib/stellar'
 
 /** @type {import('./$types').Actions} */

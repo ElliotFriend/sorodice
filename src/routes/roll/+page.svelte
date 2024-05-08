@@ -2,7 +2,7 @@
     import { enhance, deserialize } from '$app/forms'
     import Alert from '$lib/components/ui/Alert.svelte'
     import { userPublicKey } from '$lib/stores'
-    import sorodiceContract from '../../contracts/sorodice_contract'
+    import sorodiceContract from '$lib/contracts/sorodice_contract'
 
     import pkg from '@stellar/freighter-api'
     const { signTransaction } = pkg

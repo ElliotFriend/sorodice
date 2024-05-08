@@ -1,4 +1,4 @@
-import { rpcUrl } from '../contracts/util'
+import { rpcUrl } from '$lib/contracts/util'
 import { networks } from 'sorodice_contract'
 import { Address, SorobanRpc, xdr } from '@stellar/stellar-sdk'
 
