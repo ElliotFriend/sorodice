@@ -3,6 +3,6 @@
  * @param {number} ms number of milliseconds to wait
  * @returns {Promise<void>}
  */
-export function sleep( ms ) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
+export function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms))
 }

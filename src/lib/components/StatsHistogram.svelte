@@ -10,14 +10,16 @@
     let height = 300
     const padding = { top: 20, right: 5, bottom: 20, left: 15 }
 
-    const xTicks = [...Array.from({length: num_faces}, (_, i) => i + 1)]
-    const mostFreqFace = Math.max(...rolled_freq.map(o => o[1]))
-    const yTicks = [...Array.from({length: mostFreqFace + 1}).keys()]
+    const xTicks = [...Array.from({ length: num_faces }, (_, i) => i + 1)]
+    const mostFreqFace = Math.max(...rolled_freq.map((o) => o[1]))
+    const yTicks = [...Array.from({ length: mostFreqFace + 1 }).keys()]
 
-    $: xScale = d3.scaleLinear()
+    $: xScale = d3
+        .scaleLinear()
         .domain([0, num_faces])
         .range([padding.left, width - padding.right])
-    $: yScale = d3.scaleLinear()
+    $: yScale = d3
+        .scaleLinear()
         .domain([0, Math.max.apply(null, yTicks)])
         .range([height - padding.bottom, padding.top])
 

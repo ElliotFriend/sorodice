@@ -36,7 +36,7 @@
             </div>
             <div class="flex place-content-center space-x-4">
                 {#each menuItems as item}
-                    <NavbarButton item={item} />
+                    <NavbarButton {item} />
                 {/each}
             </div>
             <div class="flex-none flex items-center space-x-4 place-content-end">

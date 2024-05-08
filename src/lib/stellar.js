@@ -10,43 +10,43 @@ import {
     ScInt,
     SorobanRpc,
     xdr,
-} from "@stellar/stellar-sdk";
+} from '@stellar/stellar-sdk'
 
-export const server = new SorobanRpc.Server(PUBLIC_SOROBAN_RPC_URL, {allowHttp: true});
+export const server = new SorobanRpc.Server(PUBLIC_SOROBAN_RPC_URL, { allowHttp: true })
 
 /**
  * Submits a transaction and then polls for its status until a timeout is reached.
  * @param {Transaction | FeeBumpTransaction} tx transaction to submit to the network
  * @returns {Promise<SorobanRpc.Api.GetTransactionResponse>}
  */
-export async function yeetTx( tx ) {
-  return server.sendTransaction(tx).then(async (reply) => {
-    if (reply.status !== "PENDING") {
-      throw reply;
-    }
+export async function yeetTx(tx) {
+    return server.sendTransaction(tx).then(async (reply) => {
+        if (reply.status !== 'PENDING') {
+            throw reply
+        }
 
-    let status;
-    let attempts = 0;
-    while (attempts++ < 5) {
-      const tmpStatus = await server.getTransaction(reply.hash);
-      switch (tmpStatus.status) {
-        case "FAILED":
-          throw tmpStatus;
-        case "NOT_FOUND":
-          await sleep(500);
-          continue;
-        case "SUCCESS":
-          status = tmpStatus;
-          break;
-      }
-    }
+        let status
+        let attempts = 0
+        while (attempts++ < 5) {
+            const tmpStatus = await server.getTransaction(reply.hash)
+            switch (tmpStatus.status) {
+                case 'FAILED':
+                    throw tmpStatus
+                case 'NOT_FOUND':
+                    await sleep(500)
+                    continue
+                case 'SUCCESS':
+                    status = tmpStatus
+                    break
+            }
+        }
 
-    if (attempts >= 5 || !status) {
-      throw new Error(`Failed to find transaction ${reply.hash} in time.`);
-    }
+        if (attempts >= 5 || !status) {
+            throw new Error(`Failed to find transaction ${reply.hash} in time.`)
+        }
 
-    return status;
-  });
+        return status
+    })
 }
 
 /**
@@ -54,7 +54,7 @@ export async function yeetTx( tx ) {
  * @param {Transaction | FeeBumpTransaction} tx transaction to simulate using RPC
  * @returns {Promise<SorobanRpc.Api.SimulateTransactionResponse>}
  */
-export async function simulateTx( tx ) {
+export async function simulateTx(tx) {
     return server.simulateTransaction(tx)
 }
 
@@ -63,7 +63,7 @@ export async function simulateTx( tx ) {
  * @param {Transaction | FeeBumpTransaction} tx transaction to simulate using RPC
  * @returns {Promise<Transaction>}
  */
-export async function prepareTx( tx ) {
+export async function prepareTx(tx) {
     return server.prepareTransaction(tx)
 }
 
@@ -81,14 +81,13 @@ export async function buildRollTx({ numDice, numFaces, publicKey }) {
         fee: BASE_FEE,
         networkPassphrase: PUBLIC_SOROBAN_NETWORK_PASSPHRASE,
     })
-    .addOperation(Operation.invokeContractFunction({
-        contract: 'CC2OIY5VDRKABZILZLWGMVBROOWYEFWKIC6YPHGWC3Z4HBM2LXYVPJ7C',
-        function: "roll",
-        args: [
-            xdr.ScVal.scvU32(numDice),
-            xdr.ScVal.scvU32(numFaces)
-        ],
-    }))
-    .setTimeout(60)
-    .build()
+        .addOperation(
+            Operation.invokeContractFunction({
+                contract: 'CC2OIY5VDRKABZILZLWGMVBROOWYEFWKIC6YPHGWC3Z4HBM2LXYVPJ7C',
+                function: 'roll',
+                args: [xdr.ScVal.scvU32(numDice), xdr.ScVal.scvU32(numFaces)],
+            }),
+        )
+        .setTimeout(60)
+        .build()
 }

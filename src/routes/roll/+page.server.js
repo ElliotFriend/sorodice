@@ -28,7 +28,7 @@ export const actions = {
 
         return {
             success: true,
-            assembled: assembledTx.toJSON()
+            assembled: assembledTx.toJSON(),
         }
     },
 }

@@ -17,8 +17,8 @@
 
     $: if (form?.assembled) {
         let tx = sorodiceContract.txFromJSON(form.assembled)
-        tx.signAndSend({signTransaction})
-            .then(({ result }) => rollResult = result.value)
+        tx.signAndSend({ signTransaction })
+            .then(({ result }) => (rollResult = result.value))
             .catch((error) => {
                 console.error('error submitting transaction:', error)
             })
@@ -29,7 +29,9 @@
 
 <section class="mt-4">
     <h2 class="h2">Choose Your Di(c)e:</h2>
-    <p class="mt-4">Get started by selecting how many dice, with how many faces, you'd like to roll.</p>
+    <p class="mt-4">
+        Get started by selecting how many dice, with how many faces, you'd like to roll.
+    </p>
 
     <form method="POST" action="?/simulate" use:enhance class="mt-4 space-y-4">
         {#if form?.invalidDice}<Alert
@@ -43,11 +45,11 @@
                 message="Please enter a valid number of faces."
             />{/if}
         {#if $userPublicKey}<input
-            type="hidden"
-            value={$userPublicKey}
-            id="userPublicKey"
-            name="userPublicKey"
-        />{/if}
+                type="hidden"
+                value={$userPublicKey}
+                id="userPublicKey"
+                name="userPublicKey"
+            />{/if}
 
         <label class="label">
             <span>Number of Dice</span>

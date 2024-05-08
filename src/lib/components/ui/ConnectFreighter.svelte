@@ -1,9 +1,9 @@
 <script>
-    import { writable } from "svelte/store"
-    import { userPublicKey } from "$lib/stores"
+    import { writable } from 'svelte/store'
+    import { userPublicKey } from '$lib/stores'
 
-    import Button from "./Button.svelte";
-    import Wallet from "lucide-svelte/icons/wallet";
+    import Button from './Button.svelte'
+    import Wallet from 'lucide-svelte/icons/wallet'
     import { Avatar } from '@skeletonlabs/skeleton'
 
     import pkg from '@stellar/freighter-api'
@@ -30,16 +30,7 @@
 </script>
 
 {#if dappIsAllowed && $userPublicKey}
-    <Avatar
-        src={`https://id.lobstr.co/${$userPublicKey}.png`}
-        width="w-10"
-        rounded="rounded-xl"
-    />
+    <Avatar src={`https://id.lobstr.co/${$userPublicKey}.png`} width="w-10" rounded="rounded-xl" />
 {:else}
-    <Button
-        icon={Wallet}
-        buttonText="Connect Freighter"
-        onClick={connectWallet}
-        loading={loading}
-    />
+    <Button icon={Wallet} buttonText="Connect Freighter" onClick={connectWallet} {loading} />
 {/if}
