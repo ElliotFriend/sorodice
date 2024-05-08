@@ -6,8 +6,8 @@
     /** @type {Array<Array<number>>} */
     export let rolled_freq
 
-    let width = 440
-    let height = 200
+    let width = 650
+    let height = 300
     const padding = { top: 20, right: 5, bottom: 20, left: 15 }
 
     const xTicks = [...Array.from({length: num_faces}, (_, i) => i + 1)]
@@ -60,14 +60,14 @@
 <style>
     .chart {
         width: 100%;
-        max-width: 500px;
+        max-width: 650px;
         margin: 0 auto;
     }
 
     svg {
         position: relative;
         width: 100%;
-        height: 200px;
+        height: 300px;
     }
 
     .tick {
