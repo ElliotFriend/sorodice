@@ -61,12 +61,6 @@ function deploy_all() {
     })
 }
 
-function initialize_contract() {
-    exe(
-        `${soroban} contract invoke --id $(cat ${contract}) -- initialize --admin ${process.env.SOROBAN_ACCOUNT}`
-    )
-}
-
 function bind(contract) {
     const filenameNoExt = filenameNoExtension(contract)
     exe(
