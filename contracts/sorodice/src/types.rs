@@ -39,8 +39,6 @@ pub struct RollResult {
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct DieStatistics {
     pub num_faces: u32,
-    pub total_rolls: u32,
-    pub total_value: u32,
     pub rolled_freq: Map<u32, u32>,
 }
 

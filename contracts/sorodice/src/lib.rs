@@ -149,8 +149,6 @@ impl SorodiceContract {
             .get(&DiceStatistics::StatsForD(num_faces))
             .unwrap_or(DieStatistics {
                 num_faces,
-                total_rolls: 0,
-                total_value: 0,
                 rolled_freq: map![&env],
             });
 
@@ -172,8 +170,6 @@ impl SorodiceContract {
                 which_dice_rolled,
             },
         );
-        stats_for_d.total_rolls += &roll_result.rolls.len();
-        stats_for_d.total_value += &roll_result.total;
         for k in roll_result.rolls.iter() {
             stats_for_d
                 .rolled_freq

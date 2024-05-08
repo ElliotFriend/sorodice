@@ -166,9 +166,11 @@ fn test_get_die_stats_with_rolls() {
     // roll a few d20s, and check the stats
     client.roll(&4, &20);
     let die_stats = client.get_die_stats(&20);
-    assert_eq!(die_stats.total_rolls, 4);
-    assert!(die_stats.total_value < 81);
-    assert!(die_stats.num_faces * die_stats.total_rolls < 81);
+    let total_rolls: u32 = die_stats.clone().rolled_freq.into_iter().map(|x| x.1).sum();
+    let total_value: u32 = die_stats.clone().rolled_freq.into_iter().map(|x| x.0 * x.1).sum();
+    assert_eq!(total_rolls, 4);
+    assert!(die_stats.clone().rolled_freq.into_iter().all(|x| x.0 <= die_stats.num_faces));
+    assert!(total_value < die_stats.num_faces * total_rolls);
     assert!(die_stats.rolled_freq.len() <= 4);
 }
 
@@ -234,7 +236,9 @@ fn test_get_dice_stats_with_rolls() {
     assert_eq!(dice_stats.len(), 2);
     for die_stat in dice_stats.iter() {
         assert!(dice_to_get_stats.contains(&die_stat.num_faces));
-        assert!(die_stat.total_value <= die_stat.num_faces * die_stat.total_rolls);
+        let total_rolls: u32 = die_stat.clone().rolled_freq.into_iter().map(|x| x.1).sum();
+        let total_value: u32 = die_stat.rolled_freq.into_iter().map(|x| x.0 * x.1).sum();
+        assert!(total_value <= die_stat.num_faces * total_rolls);
     }
 }
 
@@ -285,6 +289,8 @@ fn test_get_all_stats_initialized() {
     let all_stats = client.get_all_stats();
     assert_eq!(all_stats.len(), 3);
     for die_stat in all_stats.iter() {
-        assert!(die_stat.total_value <= die_stat.num_faces * die_stat.total_rolls);
+        let total_rolls: u32 = die_stat.clone().rolled_freq.into_iter().map(|x| x.1).sum();
+        let total_value: u32 = die_stat.rolled_freq.into_iter().map(|x| x.0 * x.1).sum();
+        assert!(total_value <= die_stat.num_faces * total_rolls);
     }
 }
