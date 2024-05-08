@@ -1,10 +1,6 @@
 <script>
     import GlobalStats from '$lib/components/GlobalStats.svelte'
     import StatsCards from '$lib/components/StatsCards.svelte';
-
-    /** @type {import('./$types').PageData} */
-    export let data
-    console.log('stats/+page.svelte data', data)
 </script>
 
 <section class="space-y-6">

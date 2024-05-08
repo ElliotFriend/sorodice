@@ -17,7 +17,6 @@
 
     $: if (form?.assembled) {
         let tx = sorodiceContract.txFromJSON(form.assembled)
-        console.log('tx', tx)
         tx.signAndSend({signTransaction})
             .then(({ result }) => rollResult = result.value)
             .catch((error) => {
