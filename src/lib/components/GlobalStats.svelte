@@ -13,9 +13,9 @@
     </div>
     <div class="logo-item flex-col">
         <div>Dice Rolled</div>
-        <div class="space-x-4 !ml-0">
+        <div class="!ml-0 flex flex-wrap gap-4 gap-y-1 justify-center">
         {#each $page.data.globalStats.which_dice_rolled as die}
-            <span class="h2">{die}</span>
+            <div class="h2">{die}</div>
         {/each}
         </div>
     </div>

@@ -1,6 +1,5 @@
 <script>
     import LoaderCircle from "lucide-svelte/icons/loader-circle";
-    import { writable } from "svelte/store"
 
     /** @type {any|undefined} */
     export let icon = undefined

@@ -1,14 +1,18 @@
 <script>
     import * as d3 from 'd3'
 
+    /** @type {number} */
     export let num_faces
+    /** @type {number} */
     export let total_rolls
+    /** @type {number} */
     export let total_value
+    /** @type {Array<Array<number>>} */
     export let rolled_freq
 
     let width = 440
     let height = 200
-    const padding = { top: 20, right: 15, bottom: 20, left: 25 }
+    const padding = { top: 20, right: 5, bottom: 20, left: 15 }
 
     const xTicks = [...Array.from({length: num_faces}, (_, i) => i + 1)]
     const mostFreqFace = Math.max(...rolled_freq.map(o => o[1]))
@@ -27,35 +31,37 @@
 
 <div class="card variant-filled-surface overflow-hidden">
     <header class="p-2">
-        <svg>
-            <g class="axis y-axis">
-                {#each yTicks as tick}
-                    <g class="tick tick-{tick}" transform="translate(0, {yScale(tick)})">
-                        <line x2="100%" />
-                        <text y="-4">{tick}</text>
-                    </g>
-                {/each}
-            </g>
+        <div class="chart" bind:clientWidth={width} bind:clientHeight={height}>
+            <svg>
+                <g class="axis y-axis">
+                    {#each yTicks as tick}
+                        <g class="tick tick-{tick}" transform="translate(0, {yScale(tick)})">
+                            <line x2="100%" />
+                            <text y="-4">{tick}</text>
+                        </g>
+                    {/each}
+                </g>
 
-            <g class="axis x-axis">
-                {#each xTicks as tick, i}
-                    <g class="tick" transform="translate({xScale(i) ?? 0},{height})">
-                        <text x={barWidth / 2} y="-4">{tick}</text>
-                    </g>
-                {/each}
-            </g>
+                <g class="axis x-axis">
+                    {#each xTicks as tick, i}
+                        <g class="tick" transform="translate({xScale(i) ?? 0},{height})">
+                            <text x={barWidth / 2} y="-4">{tick}</text>
+                        </g>
+                    {/each}
+                </g>
 
-            <g class="bars">
-                {#each rolled_freq as freq}
-                    <rect
-                        x={xScale(freq[0]) - barWidth + 2}
-                        y={yScale(freq[1])}
-                        width={barWidth - 4}
-                        height={yScale(0) - yScale(freq[1])}
-                    />
-                {/each}
-            </g>
-        </svg>
+                <g class="bars">
+                    {#each rolled_freq as freq}
+                        <rect
+                            x={xScale(freq[0]) - barWidth + 2}
+                            y={yScale(freq[1])}
+                            width={barWidth - 4}
+                            height={yScale(0) - yScale(freq[1])}
+                        />
+                    {/each}
+                </g>
+            </svg>
+        </div>
     </header>
     <div class="p-4 space-y-4">
         <h3 class="h3" data-toc-ignore>{num_faces}-sided Die Stats</h3>
@@ -103,14 +109,14 @@
 	}
 
 	.tick {
-		font-family: Helvetica, Arial;
+		/* font-family: Helvetica, Arial; */
 		font-size: 0.725em;
 		font-weight: 200;
 	}
 
 	.tick line {
 		stroke: rgb(var(--on-surface));
-		stroke-dasharray: 2;
+		stroke-dasharray: 8;
 	}
 
 	.tick text {
@@ -129,6 +135,6 @@
 	.bars rect {
 		fill: rgba(var(--color-primary-500) / 1);
 		stroke: none;
-		/* opacity: 0.65; */
+		opacity: 0.7;
 	}
 </style>
