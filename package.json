@@ -11,8 +11,8 @@
         "check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
         "check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
         "test": "npm run test:integration && npm run test:unit",
-        "lint": "prettier --check ./src && eslint ./src",
-        "format": "prettier --write ./src",
+        "lint": "prettier --check ./src && eslint ./src && cargo fmt --check",
+        "format": "prettier --write ./src && cargo fmt",
         "test:integration": "playwright test",
         "test:unit": "vitest"
     },
