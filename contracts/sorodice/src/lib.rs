@@ -99,8 +99,8 @@ impl SorodiceContract {
     /// # Events
     ///
     /// Emits an event with topics `["roll", num_dice: u32, num_faces: u32],
-    /// data = [roll_result: RollResult]`
-    pub fn roll(env: Env, num_dice: u32, num_faces: u32) -> Result<RollResult, Error> {
+    /// data = [rolls: Vec<u32>]`
+    pub fn roll(env: Env, num_dice: u32, num_faces: u32) -> Result<Vec<u32>, Error> {
         check_if_init(&env);
 
         // Make sure that neither the number of dice nor the number of faces is
@@ -115,19 +115,15 @@ impl SorodiceContract {
         // rolls in.
         let prng = env.prng();
         let mut rolls = Vec::new(&env);
+        let mut total = 0u32;
 
         // Iterate through the number of dice, generating a random number within
         // the specified range, add that number to the `rolls` vector.
         for _i in 0..num_dice {
             let rolled_value: u64 = prng.gen_range(1..=num_faces.into());
             rolls.push_back(rolled_value as u32);
+            total += rolled_value as u32;
         }
-
-        // Create the result struct.
-        let roll_result = RollResult {
-            total: rolls.clone().iter().sum(),
-            rolls,
-        };
 
         // Get some statistics from storage.
         let GlobalStats {
@@ -152,11 +148,9 @@ impl SorodiceContract {
                 rolled_freq: map![&env],
             });
 
-        // Publish a relevant event.
-        env.events().publish(
-            (symbol_short!("roll"), num_dice, num_faces),
-            roll_result.clone(),
-        );
+        // Publish a dice rolling event.
+        env.events()
+            .publish((symbol_short!("roll"), num_dice, num_faces), rolls.clone());
 
         // Store the stats.
         if !which_dice_rolled.contains(num_faces) {
@@ -165,12 +159,12 @@ impl SorodiceContract {
         env.storage().instance().set(
             &DataKey::GlobalStats,
             &GlobalStats {
-                total_dice_rolled: total_dice_rolled + &roll_result.rolls.len(),
-                total_value_rolled: total_value_rolled + &roll_result.total,
+                total_dice_rolled: total_dice_rolled + &rolls.len(),
+                total_value_rolled: total_value_rolled + &total,
                 which_dice_rolled,
             },
         );
-        for k in roll_result.rolls.iter() {
+        for k in rolls.iter() {
             stats_for_d
                 .rolled_freq
                 .set(k, 1 + stats_for_d.rolled_freq.get(k).unwrap_or(0));
@@ -179,7 +173,7 @@ impl SorodiceContract {
             .persistent()
             .set(&DiceStatistics::StatsForD(num_faces), &stats_for_d);
 
-        return Ok(roll_result);
+        return Ok(rolls);
     }
 
     pub fn get_global_stats(env: Env) -> Result<GlobalStats, Error> {

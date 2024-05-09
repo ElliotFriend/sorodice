@@ -17,7 +17,7 @@ fn test_1d20_roll() {
     client.initialize(&admin);
 
     let dice_roll_result = client.roll(&1, &20);
-    assert!(dice_roll_result.total < 21);
+    assert!(dice_roll_result.into_iter().all(|x| x <= 20));
 }
 
 #[test]
@@ -32,10 +32,7 @@ fn test_2d20_roll() {
     client.initialize(&admin);
 
     let dice_roll_result = client.roll(&2, &20);
-    assert!(dice_roll_result.total < 41);
-    for roll in dice_roll_result.rolls.iter() {
-        assert!(roll < 21);
-    }
+    assert!(dice_roll_result.into_iter().all(|x| x <= 20));
 }
 
 #[test]
@@ -50,10 +47,7 @@ fn test_50d6_roll() {
     client.initialize(&admin);
 
     let dice_roll_result = client.roll(&50, &6);
-    assert!(dice_roll_result.total < 301);
-    for roll in dice_roll_result.rolls.iter() {
-        assert!(roll < 7);
-    }
+    assert!(dice_roll_result.into_iter().all(|x| x <= 6));
 }
 
 #[test]
@@ -68,13 +62,13 @@ fn test_1d20_and_1d6_roll() {
     client.initialize(&admin);
 
     let mut d20_result = client.roll(&1, &20);
-    assert!(d20_result.total < 21);
+    assert!(d20_result.into_iter().all(|x| x <= 20));
 
     let d6_result = client.roll(&1, &6);
-    assert!(d6_result.total < 7);
+    assert!(d6_result.into_iter().all(|x| x <= 6));
 
     d20_result = client.roll(&1, &20);
-    assert!(d20_result.total < 21);
+    assert!(d20_result.into_iter().all(|x| x <= 20));
 }
 
 #[test]
@@ -167,9 +161,18 @@ fn test_get_die_stats_with_rolls() {
     client.roll(&4, &20);
     let die_stats = client.get_die_stats(&20);
     let total_rolls: u32 = die_stats.clone().rolled_freq.into_iter().map(|x| x.1).sum();
-    let total_value: u32 = die_stats.clone().rolled_freq.into_iter().map(|x| x.0 * x.1).sum();
+    let total_value: u32 = die_stats
+        .clone()
+        .rolled_freq
+        .into_iter()
+        .map(|x| x.0 * x.1)
+        .sum();
     assert_eq!(total_rolls, 4);
-    assert!(die_stats.clone().rolled_freq.into_iter().all(|x| x.0 <= die_stats.num_faces));
+    assert!(die_stats
+        .clone()
+        .rolled_freq
+        .into_iter()
+        .all(|x| x.0 <= die_stats.num_faces));
     assert!(total_value < die_stats.num_faces * total_rolls);
     assert!(die_stats.rolled_freq.len() <= 4);
 }
