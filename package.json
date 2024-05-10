@@ -35,8 +35,6 @@
         "eslint": "^8.56.0",
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-svelte": "^2.35.1",
-        "graphql": "^16.8.1",
-        "graphql-request": "^7.0.0",
         "lucide-svelte": "^0.373.0",
         "postcss": "8.4.38",
         "prettier": "^3.1.1",
