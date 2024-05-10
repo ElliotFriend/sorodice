@@ -76,14 +76,14 @@
         </p>
 
         {#if form?.error}<Alert visible={true} title="Invalid Entry" message={form.error} />{/if}
+        <form method="POST" action="?/simulate" use:enhance class="mt-4 space-y-4">
 
-        <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="card variant-filled-surface overflow-hidden">
-                <header class="p-2 mt-6">
-                    <h2 class="h2 text-center" data-toc-ignore>{diceTitle}</h2>
-                </header>
-                <div class="p-4 space-y-4">
-                    <form method="POST" action="?/simulate" use:enhance class="mt-4 space-y-4">
+            <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="card variant-filled-surface overflow-hidden">
+                    <header class="p-2 mt-6">
+                        <h2 class="h2 text-center" data-toc-ignore>{diceTitle}</h2>
+                    </header>
+                    <div class="p-4 space-y-4">
                         {#if $userPublicKey}<input
                                 type="hidden"
                                 value={$userPublicKey}
@@ -114,30 +114,34 @@
                             />
                             <span>Number of Faces</span>
                         </label>
+                    </div>
+                </div>
 
-                        <button
-                            type="submit"
-                            class="btn variant-filled-primary"
-                            disabled={isLoading}>Roll!</button
-                        >
-                    </form>
+                <div class="card card-hover p-4 flex flex-col justify-center items-center variant-ghost-surface opacity-50">
+                    <header class="p-2 mt-6">
+                        <h2 class="h2 text-center" data-toc-ignore>
+                            <span class="bg-gradient-to-br from-pink-500 to-violet-500 bg-clip-text text-transparent box-decoration-clone">Coming Soon</span>
+                        </h2>
+                    </header>
+                    <div class="p-8 space-y-4">
+                        <CirclePlus size={96} />
+                    </div>
+                    <footer class="p-4 flex justify-start items-center space-x-4">
+                        <p class="text-center">In a future version, you'll be able to roll multiple different-faced dice at once.</p>
+                    </footer>
                 </div>
             </div>
 
-            <div class="card card-hover p-4 flex flex-col justify-center items-center variant-ghost-surface opacity-50">
-                <header class="p-2 mt-6">
-                    <h2 class="h2 text-center" data-toc-ignore>
-                        <span class="bg-gradient-to-br from-pink-500 to-violet-500 bg-clip-text text-transparent box-decoration-clone">Coming Soon</span>
-                    </h2>
-                </header>
-                <div class="p-8 space-y-4">
-                    <CirclePlus size={96} />
+            <div class="flex justify-center">
+                <div>
+                    <button
+                        type="submit"
+                        class="btn btn-xl variant-filled-primary"
+                        disabled={isLoading}>Roll!</button
+                    >
                 </div>
-                <footer class="p-4 flex justify-start items-center space-x-4">
-                    <p class="text-center">In a future version, you'll be able to roll multiple different-faced dice at once.</p>
-                </footer>
             </div>
-        </div>
+        </form>
     </section>
 {:else}
     <DiceResults {resetRollResults} result={rollResult} />
