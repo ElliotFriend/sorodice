@@ -23,6 +23,7 @@
         "@stellar/stellar-sdk": "git+https://github.com/stellar/js-stellar-sdk.git#fe40932187677290946c2de42e50025ec346a46a",
         "@sveltejs/adapter-auto": "^3.0.0",
         "@sveltejs/adapter-cloudflare": "^4.4.0",
+        "@sveltejs/adapter-vercel": "^5.3.0",
         "@sveltejs/kit": "^2.0.0",
         "@sveltejs/vite-plugin-svelte": "^3.0.0",
         "@tailwindcss/forms": "0.5.7",
