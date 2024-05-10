@@ -1,8 +1,3 @@
-/** @type {import('@sveltejs/adapter-vercel').Config} */
-export const config = {
-    runtime: 'nodejs20.x'
-}
-
 import sorodiceContract from '$lib/contracts/sorodice_contract'
 
 /** @type {import('./$types').PageServerLoad} */

@@ -1,8 +1,3 @@
-/** @type {import('@sveltejs/adapter-vercel').Config} */
-export const config = {
-    runtime: 'edge'
-}
-
 import { PRIVATE_BLOCKEDEN_API_KEY } from '$env/static/private'
 import { PUBLIC_CONTRACT_ADDRESS } from '$env/static/public'
 

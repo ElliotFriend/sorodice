@@ -1,4 +1,3 @@
-// import { networkPassphrase } from '$lib/contracts/util'
 import { PRIVATE_BLOCKEDEN_API_KEY } from '$env/static/private'
 import { PUBLIC_SOROBAN_NETWORK_PASSPHRASE } from '$env/static/public'
 import { sleep } from '$lib/utils'
