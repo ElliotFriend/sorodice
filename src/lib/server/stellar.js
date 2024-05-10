@@ -4,9 +4,7 @@ import { sleep } from '$lib/utils'
 import { error } from '@sveltejs/kit'
 
 import {
-    Transaction,
     TransactionBuilder,
-    FeeBumpTransaction,
     SorobanRpc,
 } from '@stellar/stellar-sdk'
 
@@ -15,7 +13,7 @@ const server = new SorobanRpc.Server(rpcUrl)
 
 /**
  * Submits a transaction and then polls for its status until a timeout is reached.
- * @param {Transaction | FeeBumpTransaction | string} tx transaction to submit to the network
+ * @param {import('@stellar/stellar-sdk').Transaction | import('@stellar/stellar-sdk').FeeBumpTransaction | string} tx transaction to submit to the network
  * @returns {Promise<SorobanRpc.Api.GetTransactionResponse>}
  */
 export async function yeetTx(tx) {

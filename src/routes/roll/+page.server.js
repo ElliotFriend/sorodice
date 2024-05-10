@@ -67,7 +67,13 @@ export const actions = {
                 error: `Transaction submission failed: ${status.status}`,
             })
         }
-        // console.log('yeeted status', status)
+
+        if (!status.returnValue) {
+            return fail(500, {
+                error: `Missing return value: ${status.resultXdr}`,
+            })
+        }
+
         return {
             txStatus: status.status,
             rollResult: scValToNative(status.returnValue),
