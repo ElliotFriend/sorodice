@@ -3,7 +3,6 @@ import { PUBLIC_CONTRACT_ADDRESS } from '$env/static/public'
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ fetch }) {
-    console.log('i should only run in the backend, i think?')
     const document = {
         "query": `{ events( where: { _and: [ { contract_id: { _eq: \"${PUBLIC_CONTRACT_ADDRESS}\" } } { in_successful_contract_call: { _eq: true } } ] } order_by: { created_at: desc } ) { topic value }}`
     }
