@@ -1,12 +1,7 @@
 <script>
-    /**
-     * @typedef {Object} MenuItem An array of objects configuring the navbar menu items.
-     * @property {string} name The text inside the button
-     * @property {string} href The path the button should lead to
-     * @property {import('svelte').ComponentType<import('lucide-svelte').Icon>} icon The icon to display alongside the button text
-     */
 
-    /** @type {MenuItem} */
+
+    /** @type {import('$lib/typedefs').MenuItem} */
     export let item
 </script>
 

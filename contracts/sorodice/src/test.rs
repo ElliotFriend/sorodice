@@ -16,7 +16,7 @@ fn test_1d20_roll() {
     let admin = Address::generate(&env);
     client.initialize(&admin);
 
-    let dice_roll_result = client.roll(&1, &20);
+    let dice_roll_result = client.roll(&admin, &1, &20);
     assert!(dice_roll_result.into_iter().all(|x| x <= 20));
 }
 
@@ -31,7 +31,7 @@ fn test_2d20_roll() {
     let admin = Address::generate(&env);
     client.initialize(&admin);
 
-    let dice_roll_result = client.roll(&2, &20);
+    let dice_roll_result = client.roll(&admin, &2, &20);
     assert!(dice_roll_result.into_iter().all(|x| x <= 20));
 }
 
@@ -46,7 +46,7 @@ fn test_50d6_roll() {
     let admin = Address::generate(&env);
     client.initialize(&admin);
 
-    let dice_roll_result = client.roll(&50, &6);
+    let dice_roll_result = client.roll(&admin, &50, &6);
     assert!(dice_roll_result.into_iter().all(|x| x <= 6));
 }
 
@@ -61,13 +61,13 @@ fn test_1d20_and_1d6_roll() {
     let admin = Address::generate(&env);
     client.initialize(&admin);
 
-    let mut d20_result = client.roll(&1, &20);
+    let mut d20_result = client.roll(&admin, &1, &20);
     assert!(d20_result.into_iter().all(|x| x <= 20));
 
-    let d6_result = client.roll(&1, &6);
+    let d6_result = client.roll(&admin, &1, &6);
     assert!(d6_result.into_iter().all(|x| x <= 6));
 
-    d20_result = client.roll(&1, &20);
+    d20_result = client.roll(&admin, &1, &20);
     assert!(d20_result.into_iter().all(|x| x <= 20));
 }
 
@@ -109,9 +109,9 @@ fn test_get_global_stats_with_rolls() {
     // initialize the contract
     let admin = Address::generate(&env);
     client.initialize(&admin);
-    client.roll(&1, &20);
-    client.roll(&2, &6);
-    client.roll(&3, &10);
+    client.roll(&admin, &1, &20);
+    client.roll(&admin, &2, &6);
+    client.roll(&admin, &3, &10);
 
     // collect global stats, make sure everything is zero/empty/whatever
     let global_stats = client.get_global_stats();
@@ -158,7 +158,7 @@ fn test_get_die_stats_with_rolls() {
     client.initialize(&admin);
 
     // roll a few d20s, and check the stats
-    client.roll(&4, &20);
+    client.roll(&admin, &4, &20);
     let die_stats = client.get_die_stats(&20);
     let total_rolls: u32 = die_stats.clone().rolled_freq.into_iter().map(|x| x.1).sum();
     let total_value: u32 = die_stats
@@ -190,7 +190,7 @@ fn test_get_die_stats_with_wrong_faces() {
     client.initialize(&admin);
 
     // roll a few d20s, and check the stats
-    client.roll(&4, &20);
+    client.roll(&admin, &4, &20);
     client.get_die_stats(&6);
 }
 
@@ -232,8 +232,8 @@ fn test_get_dice_stats_with_rolls() {
     client.initialize(&admin);
 
     // roll a few d6s and d20s, and check the stats
-    client.roll(&4, &20);
-    client.roll(&5, &6);
+    client.roll(&admin, &4, &20);
+    client.roll(&admin, &5, &6);
     let dice_to_get_stats = [6u32, 20u32];
     let dice_stats = client.get_dice_stats(&Vec::from_array(&env, dice_to_get_stats));
     assert_eq!(dice_stats.len(), 2);
@@ -258,8 +258,8 @@ fn test_get_dice_stats_with_wrong_faces() {
     client.initialize(&admin);
 
     // roll a few d6s and d20s, and check the stats
-    client.roll(&4, &20);
-    client.roll(&5, &6);
+    client.roll(&admin, &4, &20);
+    client.roll(&admin, &5, &6);
     client.get_dice_stats(&vec![&env, 4, 10]);
 }
 
@@ -284,9 +284,9 @@ fn test_get_all_stats_initialized() {
     let admin = Address::generate(&env);
     client.initialize(&admin);
 
-    client.roll(&1, &20);
-    client.roll(&2, &6);
-    client.roll(&3, &10);
+    client.roll(&admin, &1, &20);
+    client.roll(&admin, &2, &6);
+    client.roll(&admin, &3, &10);
 
     // collect global stats, make sure everything is zero/empty/whatever
     let all_stats = client.get_all_stats();

@@ -12,7 +12,14 @@
 
     const xTicks = [...Array.from({ length: num_faces }, (_, i) => i + 1)]
     const mostFreqFace = Math.max(...rolled_freq.map((o) => o[1]))
-    const yTicks = [...Array.from({ length: mostFreqFace + 1 }).keys()]
+    let yTicks = [...Array.from({ length: mostFreqFace + 1 }).keys()]
+    if (yTicks.length >= 100) {
+        yTicks = yTicks.filter((n) => n % 25 === 0)
+    } else if (yTicks.length >= 50) {
+        yTicks = yTicks.filter((n) => n % 10 === 0)
+    } else if (yTicks.length >= 15) {
+        yTicks = yTicks.filter((n) => n % 5 === 0)
+    }
 
     $: xScale = d3
         .scaleLinear()

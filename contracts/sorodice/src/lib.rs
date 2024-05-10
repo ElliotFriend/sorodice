@@ -98,10 +98,11 @@ impl SorodiceContract {
     ///
     /// # Events
     ///
-    /// Emits an event with topics `["roll", num_dice: u32, num_faces: u32],
+    /// Emits an event with topics `["roll", roller: Address, num_dice: u32, num_faces: u32],
     /// data = [rolls: Vec<u32>]`
-    pub fn roll(env: Env, num_dice: u32, num_faces: u32) -> Result<Vec<u32>, Error> {
+    pub fn roll(env: Env, roller: Address, num_dice: u32, num_faces: u32) -> Result<Vec<u32>, Error> {
         check_if_init(&env);
+        roller.require_auth();
 
         // Make sure that neither the number of dice nor the number of faces is
         // too large.
@@ -150,7 +151,7 @@ impl SorodiceContract {
 
         // Publish a dice rolling event.
         env.events()
-            .publish((symbol_short!("roll"), num_dice, num_faces), rolls.clone());
+            .publish((symbol_short!("roll"), roller, num_dice, num_faces), rolls.clone());
 
         // Store the stats.
         if !which_dice_rolled.contains(num_faces) {

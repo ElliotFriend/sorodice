@@ -4,6 +4,7 @@
 
     import Dices from 'lucide-svelte/icons/dices'
     import LineChart from 'lucide-svelte/icons/line-chart'
+    import History from 'lucide-svelte/icons/history'
     import LockKeyhole from 'lucide-svelte/icons/lock-keyhole'
 
     const menuItems = [
@@ -16,6 +17,11 @@
             name: 'Stats',
             href: '/stats',
             icon: LineChart,
+        },
+        {
+            name: 'History',
+            href: '/history',
+            icon: History
         },
         {
             name: 'Admin',

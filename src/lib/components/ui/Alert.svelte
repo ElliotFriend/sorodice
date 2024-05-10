@@ -2,13 +2,9 @@
     import TriangleAlert from 'lucide-svelte/icons/triangle-alert'
     import Button from '$lib/components/ui/Button.svelte'
 
-    /**
-     * @typedef {Object} AlertOptions
-     * @property {string} class
-     * @property {import('svelte').ComponentType<import('lucide-svelte').Icon>} icon
-     */
 
-    /** @type {Object<string, AlertOptions>} */
+
+    /** @type {Object<string, import('$lib/typedefs').AlertOptions>} */
     const alertVariants = {
         success: {
             class: 'alert variant-filled-success',

@@ -68,6 +68,12 @@ function bind(contract) {
     )
 }
 
+function initialize_contract(contract) {
+    exe(
+        `${soroban} contract invoke --id $(cat ${contract}) -- initialize --admin ${process.env.SOROBAN_ACCOUNT}`
+    )
+}
+
 function bind_all() {
     const contractIdsDir = `${dirname}/.soroban/contract-ids`
     const contractFiles = readdirSync(contractIdsDir)
@@ -77,6 +83,7 @@ function bind_all() {
         if (statSync(contractPath).size > 0) {
             // Check if file is not empty
             bind(contractPath)
+            initialize_contract(contractPath)
         }
     })
 }
@@ -92,7 +99,6 @@ function importContract(contract) {
         `export default new Client.Client({\n` +
         `  ...Client.networks.${process.env.SOROBAN_NETWORK},\n` +
         `  rpcUrl,\n` +
-        `${process.env.SOROBAN_NETWORK === 'local' || 'standalone' ? `  allowHttp: true,\n` : null}` +
         `});\n`
 
     const outputPath = `${outputDir}/${filenameNoExt}.ts`
@@ -117,6 +123,5 @@ function import_all() {
 fund_all()
 build_all()
 deploy_all()
-initialize_contract()
 bind_all()
 import_all()

@@ -1,12 +1,12 @@
 <script>
-    import { writable } from 'svelte/store'
     import { userPublicKey } from '$lib/stores'
 
-    import Button from './Button.svelte'
+    import Button from '$lib/components/ui/Button.svelte'
     import Wallet from 'lucide-svelte/icons/wallet'
-    import { Avatar } from '@skeletonlabs/skeleton'
+    import Identicon from '$lib/components/ui/Identicon.svelte'
 
     import pkg from '@stellar/freighter-api'
+    import { onMount } from 'svelte'
     const { isAllowed, setAllowed, getUserInfo } = pkg
 
     const connectWallet = async () => {
@@ -25,12 +25,12 @@
         loading = false
     }
 
-    $: loading = false
-    $: dappIsAllowed = false
+    let loading = false
+    let dappIsAllowed = false
 </script>
 
 {#if dappIsAllowed && $userPublicKey}
-    <Avatar src={`https://id.lobstr.co/${$userPublicKey}.png`} width="w-10" rounded="rounded-xl" />
+    <Identicon address={$userPublicKey} />
 {:else}
     <Button icon={Wallet} buttonText="Connect Freighter" onClick={connectWallet} {loading} />
 {/if}
