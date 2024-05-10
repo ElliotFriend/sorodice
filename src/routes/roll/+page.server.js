@@ -1,9 +1,8 @@
-import { fail, json } from '@sveltejs/kit'
+import { fail } from '@sveltejs/kit'
 
 import sorodiceContract from '$lib/contracts/sorodice_contract'
-import { yeetTx } from '$lib/stellar'
+import { yeetTx } from '$lib/server/stellar'
 import { scValToNative } from '@stellar/stellar-sdk'
-// import { buildRollTx, simulateTx, prepareTx } from '$lib/stellar'
 
 /** @type {import('./$types').Actions} */
 export const actions = {

@@ -1,5 +1,7 @@
-import { rpcUrl, networkPassphrase } from '$lib/contracts/util'
-import { sleep } from './utils'
+// import { networkPassphrase } from '$lib/contracts/util'
+import { PRIVATE_BLOCKEDEN_API_KEY } from '$env/static/private'
+import { PUBLIC_SOROBAN_NETWORK_PASSPHRASE } from '$env/static/public'
+import { sleep } from '$lib/utils'
 import { error } from '@sveltejs/kit'
 
 import {
@@ -12,7 +14,8 @@ import {
     xdr,
 } from '@stellar/stellar-sdk'
 
-export const server = new SorobanRpc.Server(rpcUrl)
+const rpcUrl = `https://api.blockeden.xyz/stellar/testnet/soroban/${PRIVATE_BLOCKEDEN_API_KEY}/`
+const server = new SorobanRpc.Server(rpcUrl)
 
 /**
  * Submits a transaction and then polls for its status until a timeout is reached.
@@ -21,7 +24,7 @@ export const server = new SorobanRpc.Server(rpcUrl)
  */
 export async function yeetTx(tx) {
     if (typeof tx === 'string') {
-        tx = TransactionBuilder.fromXDR(tx, networkPassphrase)
+        tx = TransactionBuilder.fromXDR(tx, PUBLIC_SOROBAN_NETWORK_PASSPHRASE)
     }
     return server.sendTransaction(tx).then(async (reply) => {
         if (reply.status !== 'PENDING') {
@@ -91,7 +94,7 @@ export async function buildRollTx({ numDice, numFaces, publicKey }) {
     const account = await server.getAccount(publicKey)
     return new TransactionBuilder(account, {
         fee: BASE_FEE,
-        networkPassphrase: networkPassphrase,
+        networkPassphrase: PUBLIC_SOROBAN_NETWORK_PASSPHRASE,
     })
         .addOperation(
             Operation.invokeContractFunction({

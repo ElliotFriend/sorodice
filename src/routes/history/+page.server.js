@@ -1,4 +1,4 @@
-import { PRIVATE_BLOCKEDEN_URL } from '$env/static/private'
+import { PRIVATE_BLOCKEDEN_API_KEY } from '$env/static/private'
 import { gql, request } from 'graphql-request'
 import { PUBLIC_CONTRACT_ADDRESS } from '$env/static/public'
 
@@ -21,7 +21,8 @@ export async function load() {
         }
     `
 
-    let { events } = await request(PRIVATE_BLOCKEDEN_URL, document)
+    const graphqlUrl = `https://api.blockeden.xyz/stellar/testnet/soroban/indexer/${PRIVATE_BLOCKEDEN_API_KEY}/v1/graphql`
+    let { events } = await request(graphqlUrl, document)
     return {
         /** @type {Array.<import('$lib/typedefs').ContractEvent>} */
         events,

@@ -29,6 +29,7 @@
             <span>Start Rolling</span>
             <span><ArrowRight /></span>
         </a>
-        <a href="/stats" class="btn variant-soft-primary"> View Stats </a>
+        <a href="/stats" class="btn variant-soft-primary">View Stats </a>
+        <a href="/history" class="btn variant-soft-primary">Roll History</a>
     </div>
 </div>
