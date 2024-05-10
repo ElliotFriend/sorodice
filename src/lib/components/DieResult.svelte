@@ -1,5 +1,5 @@
 <script>
-    import { Dice1, Dice2, Dice3, Dice4, Dice5, Dice6, Dices } from "lucide-svelte";
+    import { Dice1, Dice2, Dice3, Dice4, Dice5, Dice6, Dices } from 'lucide-svelte'
 
     /** @type {Object<number, import('svelte').ComponentType<import('lucide-svelte').Icon>>} */
     const diceIcons = {

@@ -25,5 +25,5 @@ export async function load() {
     return {
         /** @type {Array.<import('$lib/typedefs').ContractEvent>} */
         events,
-    };
-};
+    }
+}

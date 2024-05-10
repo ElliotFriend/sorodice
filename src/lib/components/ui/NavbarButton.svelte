@@ -1,6 +1,4 @@
 <script>
-
-
     /** @type {import('$lib/typedefs').MenuItem} */
     export let item
 </script>

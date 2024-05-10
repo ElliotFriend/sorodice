@@ -21,7 +21,7 @@
         {
             name: 'History',
             href: '/history',
-            icon: History
+            icon: History,
         },
         {
             name: 'Admin',

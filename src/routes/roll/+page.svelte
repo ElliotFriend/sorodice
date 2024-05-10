@@ -18,7 +18,7 @@
     let numDice = form?.numDice ?? null
     let numFaces = form?.numFaces ?? null
     let isLoading = false
-    $: diceTitle = numDice && numFaces ? `Rolling ${numDice}d${numFaces}` : "Configure Dice"
+    $: diceTitle = numDice && numFaces ? `Rolling ${numDice}d${numFaces}` : 'Configure Dice'
 
     /** @type {Array<number>} */
     let rollResult = []
@@ -34,34 +34,34 @@
         signTransaction(txAssembly.built?.toXDR(), {
             networkPassphrase: sorodiceContract.options.networkPassphrase,
         })
-        .then((signedTx) => {
-            console.log('signedTx', signedTx)
-            const data = new FormData()
-            data.append('signedTx', encodeURIComponent(signedTx))
-            return fetch('?/submit', {
-                method: 'POST',
-                body: data,
-                headers: {
-                    'Accept': 'application/json',
-                    'x-sveltekit-action': 'true',
+            .then((signedTx) => {
+                console.log('signedTx', signedTx)
+                const data = new FormData()
+                data.append('signedTx', encodeURIComponent(signedTx))
+                return fetch('?/submit', {
+                    method: 'POST',
+                    body: data,
+                    headers: {
+                        Accept: 'application/json',
+                        'x-sveltekit-action': 'true',
+                    },
+                })
+            })
+            .then(async (txStatus) => {
+                let result = deserialize(await txStatus.text())
+                if (!txStatus.ok) {
+                    error(txStatus.status, result.error.message)
                 }
+                console.log('received result', result)
+                rollResult = result.data.rollResult
             })
-        })
-        .then(async (txStatus) => {
-            let result = deserialize(await txStatus.text())
-            if (!txStatus.ok) {
-                error(txStatus.status, result.error.message)
-            }
-            console.log('received result', result)
-            rollResult = result.data.rollResult
-        })
-        .catch((error) => {
-            console.error('error submitting transaction:', error)
-            toastStore.trigger({
-                message: `Error submitting transaction: ${error.body?.message ?? error}`,
-                background: 'variant-filled-error',
+            .catch((error) => {
+                console.error('error submitting transaction:', error)
+                toastStore.trigger({
+                    message: `Error submitting transaction: ${error.body?.message ?? error}`,
+                    background: 'variant-filled-error',
+                })
             })
-        })
     }
 </script>
 
@@ -74,11 +74,7 @@
             Get started by selecting how many dice, with how many faces, you'd like to roll.
         </p>
 
-        {#if form?.error}<Alert
-                visible={true}
-                title="Invalid Entry"
-                message={form.error}
-            />{/if}
+        {#if form?.error}<Alert visible={true} title="Invalid Entry" message={form.error} />{/if}
 
         <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="card variant-filled-surface overflow-hidden">
@@ -87,7 +83,6 @@
                 </header>
                 <div class="p-4 space-y-4">
                     <form method="POST" action="?/simulate" use:enhance class="mt-4 space-y-4">
-
                         {#if $userPublicKey}<input
                                 type="hidden"
                                 value={$userPublicKey}
@@ -119,7 +114,11 @@
                             <span>Number of Faces</span>
                         </label>
 
-                        <button type="submit" class="btn variant-filled-primary" disabled={isLoading}>Roll!</button>
+                        <button
+                            type="submit"
+                            class="btn variant-filled-primary"
+                            disabled={isLoading}>Roll!</button
+                        >
                     </form>
                 </div>
             </div>

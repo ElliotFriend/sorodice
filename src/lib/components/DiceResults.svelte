@@ -1,5 +1,5 @@
 <script>
-    import DieResult from './DieResult.svelte';
+    import DieResult from './DieResult.svelte'
     /** @type {Array<number>} */
     export let result
 
@@ -14,5 +14,6 @@
         {/each}
     </div>
 
-    <button type="button" class="btn variant-filled" on:click={resetRollResults}>Roll Again!</button>
+    <button type="button" class="btn variant-filled" on:click={resetRollResults}>Roll Again!</button
+    >
 </section>

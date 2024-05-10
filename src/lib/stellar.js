@@ -20,7 +20,7 @@ export const server = new SorobanRpc.Server(rpcUrl)
  * @returns {Promise<SorobanRpc.Api.GetTransactionResponse>}
  */
 export async function yeetTx(tx) {
-    if (typeof tx === "string") {
+    if (typeof tx === 'string') {
         tx = TransactionBuilder.fromXDR(tx, networkPassphrase)
     }
     return server.sendTransaction(tx).then(async (reply) => {
@@ -30,8 +30,7 @@ export async function yeetTx(tx) {
 
         let status
         let attempts = 0
-        outside:
-        while (attempts++ < 5) {
+        outside: while (attempts++ < 5) {
             let tmpStatus = await server.getTransaction(reply.hash)
             // console.log(`checking tx status. attempt number ${attempts}`)
             // console.log('current tmpStatus', tmpStatus)
@@ -41,7 +40,10 @@ export async function yeetTx(tx) {
                     break outside
                 }
                 case 'FAILED': {
-                    return error(500, `Transaction submission failed: ${tmpStatus.resultMetaXdr.toXDR('base64')}`)
+                    return error(
+                        500,
+                        `Transaction submission failed: ${tmpStatus.resultMetaXdr.toXDR('base64')}`,
+                    )
                 }
                 case 'NOT_FOUND': {
                     await sleep(2500)

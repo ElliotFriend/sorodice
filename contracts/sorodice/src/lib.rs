@@ -100,7 +100,12 @@ impl SorodiceContract {
     ///
     /// Emits an event with topics `["roll", roller: Address, num_dice: u32, num_faces: u32],
     /// data = [rolls: Vec<u32>]`
-    pub fn roll(env: Env, roller: Address, num_dice: u32, num_faces: u32) -> Result<Vec<u32>, Error> {
+    pub fn roll(
+        env: Env,
+        roller: Address,
+        num_dice: u32,
+        num_faces: u32,
+    ) -> Result<Vec<u32>, Error> {
         check_if_init(&env);
         roller.require_auth();
 
@@ -150,8 +155,10 @@ impl SorodiceContract {
             });
 
         // Publish a dice rolling event.
-        env.events()
-            .publish((symbol_short!("roll"), roller, num_dice, num_faces), rolls.clone());
+        env.events().publish(
+            (symbol_short!("roll"), roller, num_dice, num_faces),
+            rolls.clone(),
+        );
 
         // Store the stats.
         if !which_dice_rolled.contains(num_faces) {

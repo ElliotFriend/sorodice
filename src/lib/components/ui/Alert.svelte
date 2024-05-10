@@ -2,8 +2,6 @@
     import TriangleAlert from 'lucide-svelte/icons/triangle-alert'
     import Button from '$lib/components/ui/Button.svelte'
 
-
-
     /** @type {Object<string, import('$lib/typedefs').AlertOptions>} */
     const alertVariants = {
         success: {

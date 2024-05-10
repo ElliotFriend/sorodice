@@ -1,5 +1,5 @@
 <script>
-    import { initializeStores, Toast } from '@skeletonlabs/skeleton';
+    import { initializeStores, Toast } from '@skeletonlabs/skeleton'
 
     import '../app.postcss'
     import SiteHeader from '$lib/components/ui/SiteHeader.svelte'
