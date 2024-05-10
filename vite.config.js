@@ -9,5 +9,7 @@ export default defineConfig({
             allow: ['./packages'],
         },
     },
-    plugins: [nodePolyfills({ include: ['buffer'] }), sveltekit(), purgeCss()],
+    plugins: [nodePolyfills({
+        include: ['buffer'],
+    }), sveltekit(), purgeCss()],
 })
