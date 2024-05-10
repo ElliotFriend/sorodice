@@ -25,11 +25,21 @@
         loading = false
     }
 
+    onMount(async () => {
+        loading = true
+        dappIsAllowed = await isAllowed()
+        if (dappIsAllowed) {
+            const { publicKey } = await getUserInfo()
+            if (publicKey) userPublicKey.set(publicKey)
+        }
+        loading = false
+    })
+
     let loading = false
     let dappIsAllowed = false
 </script>
 
-{#if dappIsAllowed && $userPublicKey}
+{#if $userPublicKey}
     <Identicon address={$userPublicKey} />
 {:else}
     <Button icon={Wallet} buttonText="Connect Freighter" onClick={connectWallet} {loading} />

@@ -1,8 +1,9 @@
 <script>
     import LoaderCircle from 'lucide-svelte/icons/loader-circle'
 
-    /** @type {any|undefined} */
-    export let icon = undefined
+    /** import('svelte').ComponentType<import('lucide-svelte').Icon> */
+    export let icon
+
     export let buttonText = 'Button'
     export let loading = false
     export let loadingText = 'Loading...'

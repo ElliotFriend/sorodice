@@ -40,7 +40,7 @@
                     <span><strong class="text-xl">SoroDice</strong></span>
                 </a>
             </div>
-            <div class="flex place-content-center space-x-4">
+            <div class="flex space-x-4 pl-8">
                 {#each menuItems as item}
                     <NavbarButton {item} />
                 {/each}
