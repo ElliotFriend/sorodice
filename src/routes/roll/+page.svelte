@@ -5,6 +5,7 @@
     import { userPublicKey } from '$lib/stores'
     import sorodiceContract from '$lib/contracts/sorodice_contract'
     import DiceResults from '$lib/components/DiceResults.svelte'
+    import CirclePlus from 'lucide-svelte/icons/circle-plus'
 
     import pkg from '@stellar/freighter-api'
     import { error } from '@sveltejs/kit'
@@ -121,6 +122,20 @@
                         >
                     </form>
                 </div>
+            </div>
+
+            <div class="card card-hover p-4 flex flex-col justify-center items-center variant-ghost-surface opacity-50">
+                <header class="p-2 mt-6">
+                    <h2 class="h2 text-center" data-toc-ignore>
+                        <span class="bg-gradient-to-br from-pink-500 to-violet-500 bg-clip-text text-transparent box-decoration-clone">Coming Soon</span>
+                    </h2>
+                </header>
+                <div class="p-8 space-y-4">
+                    <CirclePlus size={96} />
+                </div>
+                <footer class="p-4 flex justify-start items-center space-x-4">
+                    <p class="text-center">In a future version, you'll be able to roll multiple different-faced dice at once.</p>
+                </footer>
             </div>
         </div>
     </section>
