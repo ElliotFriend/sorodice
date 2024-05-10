@@ -4,6 +4,7 @@
     import '../app.postcss'
     import SiteHeader from '$lib/components/ui/SiteHeader.svelte'
     import PageContent from '$lib/components/PageContent.svelte'
+    import Footer from '$lib/components/ui/Footer.svelte'
 
     initializeStores()
 </script>
@@ -15,4 +16,6 @@
     <PageContent>
         <slot />
     </PageContent>
+
+    <Footer />
 </div>
